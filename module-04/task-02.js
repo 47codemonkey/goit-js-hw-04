@@ -10,17 +10,14 @@ const inventory = {
     }
 };
 
-const invokeInventoryOperation = function (itemName, inventoryAction) {
+const invokeInventoryOperation = function (object, inventoryAction, itemName) {
     console.log(`Invoking ${inventoryAction.name} opeartion on ${itemName}`);
-    inventoryAction.call(inventory, itemName);
+    const action = inventoryAction.bind(object, itemName);
+    action();
 };
 
-invokeInventoryOperation("Аптечка", inventory.add);
-
-
+invokeInventoryOperation(inventory, inventory.add, 'Аптечка');
 console.log(inventory.items);
 
-invokeInventoryOperation("Фильтр", inventory.remove);
-
-
+invokeInventoryOperation(inventory, inventory.remove, 'Фильтр');
 console.log(inventory.items);
